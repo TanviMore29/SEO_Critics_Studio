@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Critics Studio — Field Audit for Web Pages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body data-health="none">
+
+<div class="bg-grid"></div>
+<div class="bg-glow" id="bgGlow"></div>
+
+<header class="topbar">
+    <div class="wordmark">
+        <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+            <defs>
+                <linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40">
+                    <stop offset="0" stop-color="#2FE0C4"/>
+                    <stop offset="1" stop-color="#7C7CF0"/>
+                </linearGradient>
+            </defs>
+            <circle cx="20" cy="20" r="17" stroke="url(#logoGrad)" stroke-width="2.2"/>
+            <circle cx="20" cy="20" r="9.5" stroke="url(#logoGrad)" stroke-width="2.2"/>
+            <line x1="20" y1="1" x2="20" y2="9" stroke="url(#logoGrad)" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="20" y1="31" x2="20" y2="39" stroke="url(#logoGrad)" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="1" y1="20" x2="9" y2="20" stroke="url(#logoGrad)" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="31" y1="20" x2="39" y2="20" stroke="url(#logoGrad)" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="20" cy="20" r="2.6" fill="url(#logoGrad)"/>
+        </svg>
+        <div>
+            <div class="wordmark-title">SEO Critics Studio</div>
+            <div class="wordmark-tag">Field audit for web pages</div>
+        </div>
+    </div>
+    
+    <div class="topbar-right">
+        <div class="status-pill">
+            <span class="status-dot"></span> system online
+        </div>
+        <button class="ghost-btn" id="historyToggle">Scan Log</button>
+    </div>
+</header>
+
+<main class="wrap" id="top">
+
+    <section class="hero">
+        <div class="hero-copy">
+            <div class="eyebrow">Technical &amp; on-page SEO audit</div>
+            <h1>See your site the way<br><span class="grad-text">search engines see it.</span></h1>
+            <p class="hero-sub">Point the crawler at any URL. Get a scored, page-by-page breakdown of metadata, links, images, and technical SEO health &mdash; in one pass, no account needed.</p>
+            <div class="chips">
+                <span class="chip">No login</span>
+                <span class="chip">Detailed analysis with every page audit</span>
+                <span class="chip">Instant HTML / CSV / Excel reports</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="console" id="consoleSection">
+        <div class="console-inner">
+            <div class="console-left">
+                <div class="console-head">
+                    <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+                    <span class="console-label">audit&nbsp;console</span>
+                </div>
+                <div class="prompt-row">
+                    <span class="prompt-glyph">&gt;</span>
+                    <input type="text" id="urlInput" placeholder="example.com  or  https://example.com" autocomplete="off">
+                </div>
+                <div class="console-options">
+                    <label>Max pages
+                        <input type="number" id="maxPages" value="10" min="1" max="50">
+                    </label>
+                    <label>Crawl depth
+                        <input type="number" id="maxDepth" value="2" min="0" max="4">
+                    </label>
+                    <button class="run-btn" id="runScanBtn">
+                        <span>Run Audit</span>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+                <div class="hint" id="statusHint">Enter a URL and run an audit. The crawler stays within the site's own domain.</div>
+
+                <div class="log-panel" id="logPanel" hidden>
+                    <div class="log-title">crawl log</div>
+                    <div class="log-lines" id="logLines"></div>
+                </div>
+            </div>
+
+            <div class="console-right">
+                <div class="radar" id="radar">
+                    <div class="radar-rings"></div>
+                    <div class="radar-sweep" id="radarSweep"></div>
+                    <div class="radar-core"></div>
+                    <div class="radar-blips" id="radarBlips"></div>
+                </div>
+                <div class="radar-caption" id="radarCaption">standing by</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="feature-grid" id="features" aria-label="SEO audit features">
+        <article class="feature-card">
+            <div class="feature-icon feature-icon-teal" aria-hidden="true">⌘</div>
+            <div>
+                <h3>Technical SEO</h3>
+                <p>Crawlability &amp; indexing</p>
+            </div>
+        </article>
+        <article class="feature-card">
+            <div class="feature-icon feature-icon-teal" aria-hidden="true">&lt;/&gt;</div>
+            <div>
+                <h3>On-Page SEO</h3>
+                <p>Content &amp; HTML analysis</p>
+        </article>
+        <article class="feature-card">
+            <div class="feature-icon feature-icon-coral" aria-hidden="true">⌁</div>
+            <div>
+                <h3>Performance</h3>
+                <p>Speed &amp; Core Web Vitals</p>
+            </div>
+        </article>
+        <article class="feature-card">
+            <div class="feature-icon feature-icon-teal" aria-hidden="true">▤</div>
+            <div>
+                <h3>Export Reports</h3>
+                <p>HTML, CSV, Excel</p>
+            </div>
+        </article>
+    </section>
+
+    <section class="results" id="results" hidden>
+
+        <div class="score-hero" id="scoreHero">
+            <div class="score-glow" id="scoreGlow"></div>
+            <div class="gauge-wrap">
+                <svg class="gauge" viewBox="0 0 200 200">
+                    <circle class="gauge-track" cx="100" cy="100" r="86" />
+                    <circle class="gauge-fill" id="gaugeFill" cx="100" cy="100" r="86" />
+                </svg>
+                <div class="gauge-center">
+                    <div class="gauge-score" id="stampScore">0</div>
+                    <div class="gauge-total">/ 100</div>
+                </div>
+            </div>
+            <div class="score-info">
+                <div class="score-health" id="stampHealth">—</div>
+                <div class="score-meta-row"><span>Website</span><strong id="metaWebsite">—</strong></div>
+                <div class="score-meta-row"><span>Domain</span><strong id="metaDomain">—</strong></div>
+                <div class="score-meta-row"><span>Pages scanned</span><strong id="metaPages">—</strong></div>
+                <div class="downloads">
+                    <a class="dl-stub" id="dlHtml" href="#" target="_blank">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+                        HTML
+                    </a>
+                    <a class="dl-stub" id="dlCsv" href="#" target="_blank">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+                        CSV
+                    </a>
+                    <a class="dl-stub" id="dlExcel" href="#" target="_blank">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+                        Excel
+                    </a>
+                    <a class="dl-stub" id="dlPdf" href="#" target="_blank">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+                        PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="tab-bar" id="tabBar">
+            <button class="tab-btn active" data-tab="overview">Overview</button>
+            <button class="tab-btn" data-tab="issues">Issues <span class="tab-count" id="tabCountIssues"></span></button>
+            <button class="tab-btn" data-tab="pages">Pages</button>
+            <button class="tab-btn" data-tab="crawl">Crawl</button>
+            <button class="tab-btn" data-tab="graph">Link Graph</button>
+            <button class="tab-btn" data-tab="duplicates">Duplicates</button>
+            <button class="tab-btn" data-tab="sitemap">Sitemap</button>
+            <button class="tab-btn" data-tab="robots">robots.txt</button>
+            <button class="tab-btn" data-tab="performance">Performance</button>
+            <button class="tab-btn" data-tab="compare">Compare</button>
+        </nav>
+
+        <!-- ================= OVERVIEW TAB ================= -->
+        <div class="tab-panel" data-tab-panel="overview">
+
+            <div class="panel" id="recommendationsPanel">
+                <div class="panel-head-row">
+                    <h2>Recommendations</h2>
+                    <div class="rec-filter" id="recFilter">
+                        <button class="rec-filter-btn active" data-filter="all">All</button>
+                        <button class="rec-filter-btn" data-filter="high">High</button>
+                        <button class="rec-filter-btn" data-filter="medium">Medium</button>
+                        <button class="rec-filter-btn" data-filter="low">Low</button>
+                    </div>
+                </div>
+                <div class="rec-note">Generated by fixed, rule-based checks against this scan's results — not an AI model.</div>
+                <div class="rec-list" id="recList"></div>
+            </div>
+
+            <div class="panel">
+                <h2>Category Breakdown</h2>
+                <div class="category-grid" id="meters"></div>
+            </div>
+
+            <div class="panel two-col">
+                <div>
+                    <h2>Additional Technical Signals</h2>
+                    <div class="signal-list" id="signalList"></div>
+                </div>
+                <div>
+                    <h2>Top Keywords (site-wide)</h2>
+                    <div class="keyword-chips" id="keywordChips"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= ISSUES TAB ================= -->
+        <div class="tab-panel" data-tab-panel="issues" hidden>
+            <div class="panel">
+                <div class="panel-head-row">
+                    <h2>Issue Explorer</h2>
+                    <div class="rec-filter" id="issueSeverityFilter">
+                        <button class="rec-filter-btn active" data-severity="all">All</button>
+                        <button class="rec-filter-btn" data-severity="CRITICAL">Critical</button>
+                        <button class="rec-filter-btn" data-severity="HIGH">High</button>
+                        <button class="rec-filter-btn" data-severity="MEDIUM">Medium</button>
+                        <button class="rec-filter-btn" data-severity="LOW">Low</button>
+                        <button class="rec-filter-btn" data-severity="INFO">Info</button>
+                    </div>
+                </div>
+                <div class="issue-category-filter" id="issueCategoryFilter"></div>
+                <div class="rec-list" id="issueList"></div>
+            </div>
+        </div>
+
+        <!-- ================= PAGES TAB ================= -->
+        <div class="tab-panel" data-tab-panel="pages" hidden>
+            <div class="panel">
+                <div class="panel-head-row">
+                    <h2>Page-Level Findings</h2>
+                    <input type="text" class="table-search" id="pageSearch" placeholder="Search URL or title…">
+                </div>
+                <div class="page-filter-row" id="pageFilterRow">
+                    <button class="rec-filter-btn active" data-pfilter="all">All</button>
+                    <button class="rec-filter-btn" data-pfilter="200">200</button>
+                    <button class="rec-filter-btn" data-pfilter="3xx">3xx</button>
+                    <button class="rec-filter-btn" data-pfilter="4xx">4xx</button>
+                    <button class="rec-filter-btn" data-pfilter="5xx">5xx</button>
+                    <button class="rec-filter-btn" data-pfilter="missing_title">Missing Title</button>
+                    <button class="rec-filter-btn" data-pfilter="missing_desc">Missing Description</button>
+                    <button class="rec-filter-btn" data-pfilter="broken">Broken Links</button>
+                    <button class="rec-filter-btn" data-pfilter="missing_alt">Missing ALT</button>
+                    <button class="rec-filter-btn" data-pfilter="slow">Slow</button>
+                    <button class="rec-filter-btn" data-pfilter="large">Large</button>
+                </div>
+                <div class="table-scroll">
+                    <table class="data-table sortable" id="pagesTable">
+                        <thead>
+                            <tr>
+                                <th data-sort="page_url">URL</th>
+                                <th data-sort="status_code">Status</th>
+                                <th data-sort="is_indexable">Index?</th>
+                                <th data-sort="title">Title</th>
+                                <th data-sort="title_length">Title Len</th>
+                                <th data-sort="desc_length">Desc Len</th>
+                                <th data-sort="h1_count">H1</th>
+                                <th data-sort="canonical_url">Canonical</th>
+                                <th data-sort="word_count">Words</th>
+                                <th data-sort="internal_links">Int. Links</th>
+                                <th data-sort="external_links">Ext. Links</th>
+                                <th data-sort="broken_links">Broken</th>
+                                <th data-sort="image_count">Images</th>
+                                <th data-sort="images_missing_alt">No ALT</th>
+                                <th data-sort="response_time_ms">Resp (ms)</th>
+                                <th data-sort="page_size_kb">Size (KB)</th>
+                                <th data-sort="is_https">HTTPS</th>
+                                <th data-sort="issue_count">Issues</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pagesTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="table-pagination" id="pagesPagination"></div>
+            </div>
+        </div>
+
+        <!-- ================= CRAWL TAB ================= -->
+        <div class="tab-panel" data-tab-panel="crawl" hidden>
+            <div class="panel">
+                <h2>Crawl Overview</h2>
+                <div class="stat-grid" id="crawlStatGrid"></div>
+            </div>
+            <div class="panel two-col">
+                <div>
+                    <h2>HTTP Status Distribution</h2>
+                    <div class="bar-list" id="statusDistribution"></div>
+                </div>
+                <div>
+                    <h2>Pages per Crawl Depth</h2>
+                    <div class="bar-list" id="depthDistribution"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= LINK GRAPH TAB ================= -->
+        <div class="tab-panel" data-tab-panel="graph" hidden>
+            <div class="panel">
+                <div class="panel-head-row">
+                    <h2>Internal Link Graph</h2>
+                    <div class="graph-legend">
+                        <span><i class="dot-legend good"></i> healthy</span>
+                        <span><i class="dot-legend warn"></i> warnings</span>
+                        <span><i class="dot-legend bad"></i> broken/error</span>
+                        <span><i class="dot-legend orphan"></i> orphan</span>
+                    </div>
+                </div>
+                <div class="graph-note" id="graphNote"></div>
+                <div class="graph-wrap" id="graphWrap">
+                    <svg id="linkGraphSvg" viewBox="0 0 640 640"></svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= DUPLICATES TAB ================= -->
+        <div class="tab-panel" data-tab-panel="duplicates" hidden>
+            <div class="panel">
+                <h2>Duplicate Titles</h2>
+                <div class="dup-groups" id="dupTitles"></div>
+            </div>
+            <div class="panel">
+                <h2>Duplicate Meta Descriptions</h2>
+                <div class="dup-groups" id="dupDescriptions"></div>
+            </div>
+            <div class="panel">
+                <h2>Duplicate Canonical Targets</h2>
+                <div class="dup-groups" id="dupCanonicals"></div>
+            </div>
+            <div class="panel">
+                <h2>Similar Content (keyword-overlap heuristic)</h2>
+                <div class="rec-note" id="similarNote"></div>
+                <div class="dup-groups" id="similarPairs"></div>
+            </div>
+        </div>
+
+        <!-- ================= SITEMAP TAB ================= -->
+        <div class="tab-panel" data-tab-panel="sitemap" hidden>
+            <div class="panel">
+                <h2>Sitemap vs Crawl Coverage</h2>
+                <div class="stat-grid" id="sitemapStatGrid"></div>
+                <div class="rec-note" id="sitemapCoverageNote"></div>
+            </div>
+            <div class="panel two-col">
+                <div>
+                    <details><summary>Sitemap only (<span id="sitemapOnlyCount">0</span>)</summary>
+                        <div class="url-list" id="sitemapOnlyList"></div></details>
+                </div>
+                <div>
+                    <details><summary>Crawled only (<span id="crawledOnlyCount">0</span>)</summary>
+                        <div class="url-list" id="crawledOnlyList"></div></details>
+                </div>
+            </div>
+            <div class="panel">
+                <details><summary>In both (<span id="bothCount">0</span>)</summary>
+                    <div class="url-list" id="bothList"></div></details>
+            </div>
+        </div>
+
+        <!-- ================= ROBOTS TAB ================= -->
+        <div class="tab-panel" data-tab-panel="robots" hidden>
+            <div class="panel">
+                <h2>robots.txt Inspector</h2>
+                <div class="rec-note" id="robotsScopeNote"></div>
+                <div class="status-head" id="robotsInspectorHead"></div>
+                <table class="check-table" id="robotsInspectorTable"></table>
+            </div>
+            <div class="panel">
+                <h2>User-agent Groups</h2>
+                <div class="ua-groups" id="uaGroups"></div>
+            </div>
+            <div class="panel" id="robotsBlockedPanel" hidden>
+                <h2>⚠ Crawled pages that appear blocked by robots.txt</h2>
+                <div class="url-list" id="robotsBlockedList"></div>
+            </div>
+        </div>
+
+        <!-- ================= PERFORMANCE TAB ================= -->
+        <div class="tab-panel" data-tab-panel="performance" hidden>
+            <div class="panel">
+                <h2>Performance Dashboard</h2>
+                <div class="stat-grid" id="perfStatGrid"></div>
+                <div class="rec-note">Timing reflects this app's own request measurements — not browser-based Core Web Vitals.</div>
+            </div>
+            <div class="panel two-col">
+                <div>
+                    <h2>Pages above response threshold (<span id="perfSlowThreshold">1500</span>ms)</h2>
+                    <div class="url-list clickable" id="perfSlowList"></div>
+                </div>
+                <div>
+                    <h2>Pages above size threshold (<span id="perfLargeThreshold">1500</span>KB)</h2>
+                    <div class="url-list clickable" id="perfLargeList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= COMPARE TAB ================= -->
+        <div class="tab-panel" data-tab-panel="compare" hidden>
+            <div class="panel">
+                <h2>Compare Audits</h2>
+                <div class="compare-picker">
+                    <label>Previous scan
+                        <select id="comparePrev"></select>
+                    </label>
+                    <label>Current scan
+                        <select id="compareCurr"></select>
+                    </label>
+                    <button class="run-btn" id="compareBtn"><span>Compare</span></button>
+                </div>
+                <div id="compareResults"></div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="history-panel" id="historyPanel" hidden>
+        <h2>Recent Scans</h2>
+        <div class="history-list" id="historyList"></div>
+    </section>
+
+</main>
+
+<!-- ================= PAGE DETAILS DRAWER ================= -->
+<div class="drawer-overlay" id="drawerOverlay" hidden></div>
+<aside class="drawer" id="pageDrawer" hidden aria-hidden="true">
+    <div class="drawer-head">
+        <div class="drawer-title" id="drawerTitle">Page Details</div>
+        <button class="drawer-close" id="drawerClose" aria-label="Close">✕</button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<footer class="footer" id="about">
+    <span>© SEO Critics Studio. All rights reserved to Tanvi More.</span>
+
+
+<script src="/static/js/dashboard.js"></script>
+</body>
+</html>
